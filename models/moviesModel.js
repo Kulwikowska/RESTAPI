@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const moviesSchema = new mongoose.Schema({
+const movieSchema = mongoose.Schema({
     Title: {
         type: String,
         required: 'Title cannot be blank!'
@@ -39,6 +39,4 @@ const moviesSchema = new mongoose.Schema({
     }
 });
 
-const Movies = mongoose.model('Movies', moviesSchema);
-
-module.exports = Movies;
+export default mongoose.model('Movie', movieSchema);
