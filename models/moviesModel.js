@@ -33,10 +33,10 @@ const movieSchema = mongoose.Schema({
     Production: String,
     Website: String,
     Response: String,
-    Comments: {
+    Comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comments'
-    }
+    }]
 });
 
 export default mongoose.model('Movie', movieSchema);

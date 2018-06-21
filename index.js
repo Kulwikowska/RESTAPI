@@ -6,14 +6,8 @@ import bodyParser from 'body-parser';
 import babelPolyfill from 'babel-polyfill';
 import mongoose from 'mongoose';
 
-const mongoUrl = 'mongodb://localhost:27017/overment';
-mongoose.connect(mongoUrl);
-mongoose.Promise = global.Promise;
-mongoose.connection.on('error', (err) => {
-    console.log('Could not connect to the database. Exiting now...');
-    process.exit();
-});
 
+mongoose.connect("mongodb://localhost/restApi");
 
 const app = express();
 
@@ -22,8 +16,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/movies', moviesRoutes());
-// app.use('/comments', commentsRoutes());
+app.use('/comments', commentsRoutes());
 
-app.listen(1337, () => {
-    console.log('Server running at http://127.0.0.1:1337/');
+app.listen(8080, "127.0.0.1", function() {
+    console.log("The Server Has Started!");
 });
