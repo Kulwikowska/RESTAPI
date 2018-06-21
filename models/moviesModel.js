@@ -33,6 +33,7 @@ const movieSchema = mongoose.Schema({
     Production: String,
     Website: String,
     Response: String,
+    created: { type: Date, default: Date.now },
     Comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comments'
