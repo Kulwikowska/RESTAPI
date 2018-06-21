@@ -8,7 +8,7 @@ import jsonUtils from '../utils/jsonUtils';
 export default {
     async create(req, res) {
         try {
-            const movie = await Movie.findById(req.body.id).populate('comments');
+            const movie = await Movie.findById(req.body.movieId).populate('comments');
             if (movie == null) {
                 throw new Error("Movie doesn't exist.");
             }

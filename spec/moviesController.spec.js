@@ -1,42 +1,33 @@
-var moviesController = require('../controllers/moviesController');
-var fetch = require('node-fetch');
-var request = require('request')
-var base_url = "http://localhost:8080"
+import fetch from 'node-fetch';
+import server from '../index';
+import clearMongo from './clearMongo';
 
-// describe("Movies controller tests", function() {
-//     it("should successfully create movie when title is given", async function(done) {
-//         const response = await moviesController.create
-//         await request(base_url + '/movies', { method: 'POST', body: { "title": "harry potter" } });
-//         expect(response.ok).toBe(true);
-//         expect(response.json()._id).not.toBeNull();
-//     });
-// });
 
-// beforeEach(function(done) {
-//     setTimeout(function() {
-//         value = 0;
-//         done();
-//     }, 1);
-// });
+const base_url = "http://localhost:3000"
 
-// it("should support async execution of test preparation and expectations", function(done) {
-//     value++;
-//     expect(value).toBeGreaterThan(0);
-//     done();
-// });
 
-// describe("long asynchronous specs", function() {
-//     var originalTimeout;
-//     beforeEach(function() {
-//         originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-//         jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
-//     });
-//     it("takes a long time", function(done) {
-//         setTimeout(function() {
-//             done();
-//         }, 9000);
-//     });
-//     afterEach(function() {
-//         jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
-//     });
-// });
+describe("Movies controller test", function() {
+    // describe("GET /", function() {
+    //     it("returns status code 200", function() {
+    //         request.get(base_url + '/movies', function(error, response, body) {
+    //             console.log(body);
+    //             expect(response.statusCode).toBe(200);
+    //         });
+    //     });
+    // });
+
+    describe("POST /", function() {
+        it("returns status code 200", async function(done) {
+            const response = await fetch(base_url + '/movies', {
+                method: 'POST',
+                body: JSON.stringify({ title: "harry potter" }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+            const responseBody = await response.json();
+
+            expect(response.status).toBe(201);
+            expect(responseBody._id).not.toBeNull();
+            done();
+        });
+    });
+});
