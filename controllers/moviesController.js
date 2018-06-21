@@ -6,14 +6,14 @@ import validations from '../routes/validation/validations'
 import Joi from 'joi';
 
 export default {
+
     async create(req, res) {
         try {
             const isValid = Joi.validate(req.body, validations.createMovie);
             if (isValid.error) {
                 throw isValid.error;
             }
-            const movieMetadata = await omdbApi.getMovieMetadata(req.body.title);
-            const movie = await new Movie(movieMetadata).save();
+            const movie = await new Movie(await omdbApi.getMovieMetadata(req.body.title)).save();
             return res.status(201).send(movie);
         } catch (error) {
             return res.status(400).send({ message: error.message });
@@ -27,6 +27,6 @@ export default {
         } catch (error) {
             return res.status(400).send({ message: error.message });
         }
-
     }
+
 }

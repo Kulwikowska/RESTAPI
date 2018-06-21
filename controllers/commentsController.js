@@ -6,6 +6,7 @@ import url from 'url';
 import jsonUtils from '../utils/jsonUtils';
 
 export default {
+
     async create(req, res) {
         try {
             const movie = await Movie.findById(req.body.movieId).populate('comments');
@@ -22,16 +23,15 @@ export default {
     },
 
     async findAll(req, res) {
-        let filters = {
+        let filters = jsonUtils.removeEmpty({
             'movie': req.query.movieId
-        }
-        filters = jsonUtils.removeEmpty(filters);
+        });
         try {
-            const commentsAll = await Comment.find(filters);
-            return res.status(200).send(commentsAll);
+            const comments = await Comment.find(filters);
+            return res.status(200).send(comments);
         } catch (error) {
             return res.status(400).send({ message: error.message });
         }
-
     }
+
 }

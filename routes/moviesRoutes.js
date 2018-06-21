@@ -4,10 +4,7 @@ import moviesController from '../controllers/moviesController';
 
 export default () => {
     const api = Router();
-
     api.post("/", moviesController.create)
     api.get("/", moviesController.findAll);
-
     return api;
-
 }
