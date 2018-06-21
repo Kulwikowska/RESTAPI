@@ -6,10 +6,8 @@ import bodyParser from 'body-parser';
 import babelPolyfill from 'babel-polyfill';
 import mongoose from 'mongoose';
 
-
-mongoose.connect("mongodb://localhost/restApi");
-
 const app = express();
+mongoose.connect("mongodb://agnieszka:agnieszka1234@ds161790.mlab.com:61790/agnieszkarest");
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,6 +16,11 @@ app.use(bodyParser.json());
 app.use('/movies', moviesRoutes());
 app.use('/comments', commentsRoutes());
 
-app.listen(8080, "127.0.0.1", function() {
-    console.log("The Server Has Started!");
+const port = process.env.PORT || 3000;
+const server = app.listen(port, () => {
+    console.log('Service started on port :' + port);
 });
+
+export default {
+    server: server
+}

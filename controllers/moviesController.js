@@ -9,7 +9,6 @@ export default {
     async create(req, res) {
         try {
             const isValid = Joi.validate(req.body, validations.createMovie);
-            console.log(isValid);
             if (isValid.error) {
                 throw isValid.error;
             }
